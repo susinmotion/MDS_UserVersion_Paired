@@ -9,7 +9,7 @@ def main():
                 else:
                         zipped=True
                 filenames=lines[1].split("=")[1].split(",")
-                barcodeLength=int(lines[3].split()[1])
+		barcodeLength=int(lines[3].split()[1])
                 forwardAligns=lines[4].split()[1].split(",")
                 reverseAligns=lines[5].split()[1].split(",")
                 targets=lines[6].split()[1].split(",")
@@ -32,7 +32,6 @@ def main():
                 else:
                         call=unzippedCall
                 for fileset in filesets:
-
                         with eval(call.format(fileset[0])) as f:
                                 with eval(call.format(fileset[1])) as g:
                                         print "Processing files {} and {}".format(fileset[0],fileset[1])
@@ -42,12 +41,11 @@ def main():
                                                 read1=f.readline()
                                                 read2=g.readline()
 
-                                                read1=f.readline()
-                                                read2=g.readline()
+                                                read1=f.readline().strip("\n")
+                                                read2=g.readline().strip("\n")
                                                 if not (read1 and read2):
                                                         print -100
                                                         break
-
                                                 sequence1=""
                                                 sequence2=""
                                                 barcode1=""
@@ -67,7 +65,6 @@ def main():
                                                                 sequence1=sequence[(indexForwardAlign+len(forwardAligns[i]) ):(indexReverseAlign)]
 
 
-
                 	                        for i in range(len(targets)):
                                                         sequence=read2
                                                         indexReverseAlign=sequence.find(reverseComplement(reverseAligns[i]))
@@ -79,6 +76,7 @@ def main():
                                                                 barcode2= reverseComplement(sequence[indexForwardAlign+len(forwardAligns[i])-1:(indexForwardAlign+len(forwardAligns[i])+barcodeLength) ])
                                                                 phase2= indexReverseAlign
                                                                 sequence2=reverseComplement(sequence[(indexReverseAlign+len(reverseAligns[i])-1):(indexForwardAlign)])
+
                                                 if sequence1 and len(barcode1)==barcodeLength and len(barcode2)==barcodeLength:
                                                         if barcode1==barcode2 and targetNo1==targetNo2:
                                                                 for i in range(len(phaseShifts[targetNo1])):

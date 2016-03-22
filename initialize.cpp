@@ -113,13 +113,13 @@ Trie* readFileIntoTrie(string filename){//set constants based on config file
     cout<<"Beginning to read files"<<endl;
     getline(cin,message);
     cout<<message<<endl;
-    while (true){
-
+    bool stillRunning=true;
+    while (stillRunning==true){
         cin>>ROINumber;
         if (ROINumber ==-100){
             string message2;
             cin>>message2;
-            if (message2=="Processing"){
+	    if (message2=="Processing"){
                 string next;
                 string words;
                 string in;
@@ -129,18 +129,17 @@ Trie* readFileIntoTrie(string filename){//set constants based on config file
 
             }
             if (message2=="-1000"){
-               break;
+		cout<<"Done reading files"<<endl;
+                stillRunning=false;
+		break;
             }
-
-        }
-
-        cin>>phase>>barcode>>sequence;
-
-        trie->addBarcode(ROINumber, phase,barcode,sequence, TARGET[ROINumber]);
+	}
+	if (stillRunning==true){
+		cin>>phase>>barcode>>sequence;
+    	   	trie->addBarcode(ROINumber, phase,barcode,sequence, TARGET[ROINumber]);
+    		}
+	else{break;}
     }
-           
-    
-//  }
 // else {
 //    cout<<"Error opening file "<< userDefinedVariables["FILENAME"][i]<<endl;
 //    }
