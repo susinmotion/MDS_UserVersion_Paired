@@ -79,15 +79,14 @@ def main():
 
                                                 if sequence1 and len(barcode1)==barcodeLength and len(barcode2)==barcodeLength:
                                                         if barcode1==barcode2 and targetNo1==targetNo2:
-                                                                for i in range(len(phaseShifts[targetNo1])):
-                                        
-                                                                        if str(phase1)==phaseShifts[targetNo1][i][0] and str(phase2)==phaseShifts[targetNo1][i][1]:
+								for i in range(len(phaseShifts[targetNo1])):
+									if str(phase1)==phaseShifts[targetNo1][i][1] and str(phase2)==phaseShifts[targetNo1][i][0]:
                                                                                 phase=i
-                                                
-                                                                if phase:
+                                                				break
+                                                                if phase!=None:
                                                                         finalSequence=barcode1+str(phase)+forwardAligns[targetNo1]+targets[targetNo1]+reverseAligns[targetNo1]
                                                                         print targetNo1, phase, barcode1,sequence1
-                                                                        print targetNo2, phase, barcode2,sequence2
+						                        print targetNo2, phase, barcode2,sequence2
                                                 else:
                                                         continue
                                                         #print sequence
